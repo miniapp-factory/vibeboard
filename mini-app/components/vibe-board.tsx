@@ -20,7 +20,7 @@ async function getRandomImages(theme: string, count: number): Promise<string[]> 
     },
   });
   const data = await response.json();
-  return data.photos.map((p: any) => p.src.medium);
+  return data.photos.map((p: { src: { medium: string } }) => p.src.medium);
 }
 
 export default function VibeBoard() {
