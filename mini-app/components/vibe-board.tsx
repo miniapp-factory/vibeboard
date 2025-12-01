@@ -39,21 +39,21 @@ export default function VibeBoard() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center gap-6 p-4">
-      <h1 className="text-3xl font-semibold">{theme}</h1>
+    <div className="flex flex-col items-center gap-6 p-4 bg-[#FFF8F0]">
+      <h1 className="text-2xl font-semibold text-[#F2A6A6]">{theme}</h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
         {images.map((src, idx) => (
           <img
             key={idx}
             src={src}
             alt={`${theme} image ${idx + 1}`}
-            className="w-full h-auto rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
+            className="w-full h-auto rounded-lg shadow-md transition-transform duration-300 hover:scale-105 border-2 border-[#FFFFFF]"
           />
         ))}
       </div>
       <button
         onClick={generateBoard}
-        className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary/80 transition-colors"
+        className="px-6 py-2 bg-[#C8B6FF] text-[#333333] rounded-md hover:bg-[#FFD6BA] transition-colors"
       >
         Generate Mood Board
       </button>
