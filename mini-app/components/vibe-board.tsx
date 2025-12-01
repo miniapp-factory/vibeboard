@@ -13,25 +13,25 @@ function getRandomTheme() {
   return themes[Math.floor(Math.random() * themes.length)];
 }
 
-function getRandomImages(theme: string, count: number) {
-  // Use Unsplash source with theme as query
-  return Array.from({ length: count }, (_, i) => {
-    const width = 400;
-    const height = 300;
-    const sig = Math.random();
-    return `https://source.unsplash.com/random/${width}x${height}?${theme}&sig=${sig}`;
+async function getRandomImages(theme: string, count: number): Promise<string[]> {
+  const response = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(theme)}&per_page=${count}`, {
+    headers: {
+      Authorization: process.env.PEXELS_API_KEY ?? '',
+    },
   });
+  const data = await response.json();
+  return data.photos.map((p: any) => p.src.medium);
 }
 
 export default function VibeBoard() {
   const [theme, setTheme] = useState<string>(getRandomTheme());
   const [images, setImages] = useState<string[]>([]);
 
-  const generateBoard = () => {
+  const generateBoard = async () => {
     const newTheme = getRandomTheme();
     const count = Math.floor(Math.random() * 3) + 4; // 4–6 images
     setTheme(newTheme);
-    setImages(getRandomImages(newTheme, count));
+    setImages(await getRandomImages(newTheme, count));
   };
 
   useEffect(() => {
